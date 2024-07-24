@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(http-server-starter-cpp)
 
-file(GLOB_RECURSE SOURCE_FILES src/*.cpp src/*.hpp)
+file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 
 file(GLOB_RECURSE TEST_SOURCES src/*_test.cpp)
 
@@ -14,13 +14,12 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 add_compile_options(-fsanitize=address)
 add_link_options(-fsanitize=address)
 
-find_package(Threads REQUIRED)
-find_package(ZLIB REQUIRED)
-
 find_package(Catch2 3 REQUIRED)
 
-add_executable(server ${SOURCE_FILES})
-add_executable(tests ${TEST_SOURCES})
+add_executable(main "playground/main.cpp" ${SOURCE_FILES})
+target_include_directories(main PUBLIC include/)
 
-target_link_libraries(server PRIVATE Threads::Threads ZLIB::ZLIB)
+
+add_executable(tests ${SOURCE_FILES} ${TEST_SOURCES})
+target_include_directories(tests PUBLIC include/)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-
+namespace utils {
 template <typename T>
 class UniqueFunction;
 
@@ -9,7 +9,7 @@ template <typename R, typename... Args>
 class UniqueFunction<R(Args...)> {
     struct Callable {
         virtual R Call(Args...) = 0;
-        virtual~Callable() = default;
+        virtual ~Callable() = default;
     };
     template <typename F>
     struct CallableImpl : Callable {
@@ -20,6 +20,7 @@ class UniqueFunction<R(Args...)> {
         }
         F f;
     };
+
 public:
     template <typename F>
     UniqueFunction(F&& f) : callback_(std::make_unique<CallableImpl<F>>(std::forward<F>(f))) {
@@ -40,5 +41,4 @@ private:
     std::unique_ptr<Callable> callback_;
 };
 
-
-
+}  // namespace utils

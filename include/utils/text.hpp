@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 
+namespace utils::text {
 template <typename String>
 std::vector<std::string> Split(const String& data, std::string delimiter) {
     size_t index = 0;
@@ -45,4 +46,5 @@ inline size_t LongestPrefix(const std::string& a, const std::string& b) {
         }
     }
     return min;
+}
 }
