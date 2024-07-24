@@ -1,2 +1,2 @@
-# http-server
+# web
 Simple Web Framework
