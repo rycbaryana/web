@@ -1,5 +1,6 @@
-#include <http/router/trie.hpp>
+#include <http/server/router/trie.hpp>
 #include <algorithm>
+#include <utility>
 
 // Trie for router with wildcard recognition
 // Not thread safe
@@ -30,7 +31,7 @@ std::pair<std::optional<Handler>, Params> RouterTrie::FindHandler(const Path& pa
         return {std::nullopt, std::move(params)};
     }
     return {Handler([cur = std::move(cur)](Request request, Params params) {
-                return (*cur->handler)(request, params);
+                return (*cur->handler)(std::move(request), std::move(params));
             }),
             std::move(params)};
 }
@@ -79,7 +80,7 @@ NodePtr RouterTrie::InsertChild(NodePtr& node, const std::string& component, Par
 
     return child;
 }
-NodePtr RouterTrie::Go(const NodePtr& node, const std::string& component, Params& params) const {
+NodePtr RouterTrie::Go(const NodePtr& node, const std::string& component, Params& params) {
     if (node->wildcard_child || node->type == NodeType::CATCH_ALL) {
         auto wildcard_node =
             node->type == NodeType::CATCH_ALL ? node : node->children.begin()->second;
@@ -103,7 +104,7 @@ NodePtr RouterTrie::Go(const NodePtr& node, const std::string& component, Params
         if (auto it = node->children.find(component); it != node->children.end()) {
             return it->second;
         } else {
-            return NodePtr();
+            return {};
         }
     }
 }

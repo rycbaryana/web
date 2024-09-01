@@ -1,14 +1,14 @@
-#include <http/router/router.hpp>
+#include <http/server/router/router.hpp>
 namespace http {
 
-Response HttpRouter::Serve(Request request) {
+Response HttpRouter::Serve(const Request& request) {
     auto [handler, params] =
         tries_[static_cast<std::underlying_type_t<HttpMethod>>(request.GetMethod())].FindHandler(
             request.GetUrl().Path());
     if (handler.has_value()) {
         return (*handler)(request, params);
     } else {
-        return Response(StatusCode::NotFound);
+        return Response{StatusCode::NotFound};
     }
 }
 

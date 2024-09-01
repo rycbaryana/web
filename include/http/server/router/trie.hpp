@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 #include <optional>
-#include <http/handler.hpp>
+#include "http/server/handler.hpp"
 
 // Trie for router with wildcard recognition
 // Not thread safe
@@ -35,9 +35,9 @@ public:
     std::pair<std::optional<Handler>, Params> FindHandler(const Path& path) const;
 
 private:
-    std::optional<size_t> FindWildcard(const std::string& path);
-    NodePtr InsertChild(NodePtr& node, const std::string& component, Params& params);
-    NodePtr Go(const NodePtr& node, const std::string& component, Params& params) const;
+    static std::optional<size_t> FindWildcard(const std::string& path);
+    static NodePtr InsertChild(NodePtr& node, const std::string& component, Params& params);
+    static NodePtr Go(const NodePtr& node, const std::string& component, Params& params) ;
 
 private:
     NodePtr base;

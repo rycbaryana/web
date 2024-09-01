@@ -7,7 +7,7 @@ class Response final {
 public:
     Response() = default;
 
-    Response(StatusCode status) : status_(status) {};
+    explicit Response(StatusCode status) : status_(status) {};
 
     Response& header(std::string_view header, std::vector<std::string> values) {
         headers_.emplace(header, std::move(values));

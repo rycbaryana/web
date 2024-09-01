@@ -3,7 +3,7 @@
 namespace io {
 class SocketWriter {
 public:
-    SocketWriter(int socket) : socket_(socket) {
+    explicit SocketWriter(int socket) : socket_(socket) {
     }
     size_t Write(std::string_view data);
 

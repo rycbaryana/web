@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include <http/router/trie.hpp>
+#include <http/server/router/trie.hpp>
 
 using namespace http;
 
@@ -16,8 +16,8 @@ struct TestRequest {
     Params params;
 };
 
-auto MockHandler(std::string value) {
-    return [=](Request, Params) {
+auto MockHandler(const std::string& value) {
+    return [=](Request, const Params&) {
         auto response = Response(StatusCode::OK);
         response.body(value);
         return response;

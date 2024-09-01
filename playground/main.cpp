@@ -1,6 +1,7 @@
 #include <iostream>
-
+#include <http/client/client.hpp>
 int main() {
-    std::cout << "Hello, World!" << '\n';
+    http::Request req(http::Url("http://www.google.com/"), http::HttpMethod::GET);
+    auto resp = http::client::send(req);
     return 0;
 }

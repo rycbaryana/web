@@ -1,5 +1,5 @@
 #pragma once
-#include <http/handler.hpp>
+#include "http/server/handler.hpp"
 #include <http/method.hpp>
 #include <utils/path.hpp>
 #include "trie.hpp"
@@ -19,7 +19,7 @@ public:
     void DELETE(Path path, Handler handler) {
         Handle(HttpMethod::DELETE, path, std::move(handler));
     }
-    Response Serve(Request request);
+    Response Serve(const Request& request);
 
 private:
     void Handle(HttpMethod method, Path path, Handler handler);

@@ -1,5 +1,5 @@
 #include <sys/socket.h>
-#include <io/writer.hpp>
+#include <io/socket_writer.hpp>
 #include <stdexcept>
 namespace io {
 size_t SocketWriter::Write(std::string_view data) {

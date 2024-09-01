@@ -5,12 +5,12 @@ namespace io {
 class SocketReader {
     static constexpr size_t kBufSize = 16384;
 public:
-    SocketReader(int socket) : socket_(socket) {
+    explicit SocketReader(int socket) : socket_(socket) {
     }
     std::string_view Read();
 
 private:
-    char buf[kBufSize];
+    char buf[kBufSize]{};
     int socket_;
 };
 }  // namespace io

@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include "str_hash.hpp"
 
 namespace utils::text {
 template <typename String>
@@ -23,10 +24,10 @@ std::vector<std::string> Split(const String& data, std::string delimiter) {
 }
 
 template <typename String>
-std::unordered_map<std::string, std::string> SplitKeyValue(const String& data,
+std::unordered_map<std::string, std::string, utils::StringHash> SplitKeyValue(const String& data,
                                                            std::string delimiter,
                                                            std::string key_value_delimiter) {
-    std::unordered_map<std::string, std::string> map;
+    std::unordered_map<std::string, std::string, utils::StringHash> map;
     auto pairs = Split(data, delimiter);
     for (auto& pair_str : pairs) {
         auto pair = Split(pair_str, key_value_delimiter);

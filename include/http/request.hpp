@@ -9,9 +9,9 @@ class Request final {
 public:
     Request() = default;
 
-    Request(const Url& url, HttpMethod method = HttpMethod::UNSPECIFIED)
-        : url_(url), method_(method) {
-        header(Host, url.Host()).header(UserAgent, "rycbaryana's web").header(Accept, "*/*");
+    explicit Request(Url url, HttpMethod method)
+        : url_(std::move(url)), method_(method) {
+        header(Host, url_.Host()).header(UserAgent, "rycbaryana's web").header(Accept, "*/*");
     }
 
     Request& method(HttpMethod method) {
@@ -56,7 +56,7 @@ public:
 private:
     std::string proto_{"HTTP/1.1"};  // HTTP/1.1
     Url url_;
-    HttpMethod method_ { HttpMethod:: UNSPECIFIED };
+    HttpMethod method_;
     Headers headers_;
     std::string body_;
 };

@@ -6,8 +6,8 @@
 #include <unistd.h>
 #include <string>
 
-#include "io/reader.hpp"
-#include "io/writer.hpp"
+#include "io/socket_reader.hpp"
+#include "io/socket_writer.hpp"
 
 namespace net {
 class BaseServer {

@@ -2,7 +2,7 @@
 #include <stdexcept>
 namespace net {
 BaseServer::BaseServer(int port) {
-    server_fd_ = socket(AF_INET, SOCK_STREAM, 0);
+    server_fd_ = socket(PF_INET, SOCK_STREAM, 0);
     if (server_fd_ < 0) {
         throw std::runtime_error("Failed to create server socket");
     }
